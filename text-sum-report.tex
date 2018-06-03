@@ -1,0 +1,149 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% University Assignment Title Page 
+% LaTeX Template
+% Version 1.0 (27/12/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% WikiBooks (http://en.wikibooks.org/wiki/LaTeX/Title_Creation)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% 
+% Instructions for using this template:
+% This title page is capable of being compiled as is. This is not useful for 
+% including it in another document. To do this, you have two options: 
+%
+% 1) Copy/paste everything between \begin{document} and \end{document} 
+% starting at \begin{titlepage} and paste this into another LaTeX file where you 
+% want your title page.
+% OR
+% 2) Remove everything outside the \begin{titlepage} and \end{titlepage} and 
+% move this file to the same directory as the LaTeX file you wish to add it to. 
+% Then add \input{./title_page_1.tex} to your LaTeX file where you want your
+% title page.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\title{Title page with logo}
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[english]{babel}
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[sort, numbers]{natbib}
+
+\begin{document}
+
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+ 
+%----------------------------------------------------------------------------------------
+%	HEADING SECTIONS
+%----------------------------------------------------------------------------------------
+
+\textsc{\LARGE Ukrainian Catholic University}\\[1cm] % Name of your university/college
+\textsc{\Large Applied Sciences Faculty}\\[0.5cm] % Major heading such as course name
+\textsc{\large Data Science Master Programme}\\[0.5cm] % Minor heading such as course title
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Generative text summarization with Recurrent Neural
+	Networks}\\[10pt]
+{\Large \bfseries Machine Learning project report}\\[0.4cm] % Title of your document
+\HRule \\[1cm]
+ 
+%----------------------------------------------------------------------------------------
+%	AUTHOR SECTION
+%----------------------------------------------------------------------------------------
+
+
+% If you don't want a supervisor, uncomment the two lines below and remove the section above
+\Large \emph{Authors:}\\
+Hanna \textsc{Pylieva}\\Yuriy \textsc{Mykhalchuk}\\Irynei \textsc{Baran}\\[0.5cm] % Your name
+
+%----------------------------------------------------------------------------------------
+%	DATE SECTION
+%----------------------------------------------------------------------------------------
+
+{\large \today}\\[2cm] % Date, change the \today to a set date if you want to be precise
+
+%----------------------------------------------------------------------------------------
+%	LOGO SECTION
+%----------------------------------------------------------------------------------------
+
+\includegraphics[height=4cm]{UCU-Apps.png}\\[1cm] % Include a department/university logo - this will require the graphicx package
+ 
+%----------------------------------------------------------------------------------------
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+
+\begin{abstract}
+\todo[inline, color=green!40]{Invent a meaningful abstract.}In this work, we cast text summarization as a sequence-to-sequence problem and apply the attentional encoder-decoder RNN that has been shown to be successful for Neural Machine Translation \cite{baseline_NMT}.
+\end{abstract}
+
+\section{Introduction}
+
+\todo[inline, color=green!40]{Invent a meaningful introduction. Per Shelpuk: Good project will be dedicated to an important problem and have a clear vision of what value it can bring to the potential users. All stages will be explored and analyzed, the approach for each of them is selected thoughtfully, compared to the alternatives and clearly explained. The results are evaluated and explained (explanation should provide additional information, not just restating the results or the code in English).}
+In the modern Internet age, textual data is ever increasing. According to this each Internet user will highly benefit from condensing data while preserving the information and meaning. This idea is a driver of growing interest among the research community for developing new approaches to automatically summarize the text. Automatic text summarization system generates a short summary that captures the main ideas
+of an input text. Since the advent of text summarization in 1950s, researchers have been trying to improve techniques for generating machine summaries which are not worse than human made summaries \cite{text_sum_survey}.
+  
+There are two prominent types of summarization algorithms.
+
+\begin{itemize}
+	\item Extractive summarization copies parts of the source text through some measure of importance and then combines those part/sentences together to render a summary. Importance of sentence is based on linguistic and statistical features.
+
+	\item Abstractive summarization generates new phrases, possibly rephrasing or using words that were not in the original text. Naturally abstractive approaches are harder as it involves robust natural language processing. For perfect abstractive summary, the model has to first understand the document and then express that understanding in succinct form possibly using new words and phrases.  Abstractive summarization has complex capabilities like generalization, paraphrasing and incorporating  real-world knowledge \cite{abstractive_text_summarization}.
+\end{itemize}
+
+Majority of the work has traditionally focused on extractive approaches due to the easy of defining hard-coded rules to select important sentences than generate new ones. Also, it promises grammatically correct and coherent summary. But they often don’t summarize long and complex texts well as they are very restrictive.
+
+Abstractive methods, on the other hand, provide highly powerful and promising results. That is why in this project we implemented an algorithm for abstractive text summarization to build solid understanding if this approach and discover how it can be improved.
+
+
+\section{Model}
+\subsection{Overview}
+Models for abstractive summarization fall under a larger deep learning category called
+sequence-to-sequence models, which map from an input sequence to a target sequence. 
+We used \cite{basic-article} as a baseline of our work.
+
+
+\begin{thebibliography}{9}
+	\bibitem{baseline_NMT}
+	Bahdanau,D.; Cho,K.; Bengio Y. \textit{Neural machine translation by jointly
+	learning to align and translate}. CoRR, abs/1409.0473, 2014. \url{ http://arxiv.org/
+	abs/1409.0473}.
+	
+	\bibitem{text_sum_survey}
+	Gambhir, M. and Gupta, V. \textit{Recent automatic text summarization techniques: a survey}. Artificial Intelligence Review, 47(1):1-66, 2017.
+	
+	\bibitem{abstractive_text_summarization}
+	Singhal,S. and Bhattacharya, A. \textit{Abstractive Text Summarization}. Department of Computer Science IIT Kanpur, 2017.
+	 
+	\bibitem{basic-article}
+	Lopyrev, K.\textit{ Generating News Headlines with Recurrent Neural
+	Networks}. CoRR, abs/1512.01712, 2015.
+	
+	\bibitem{bishop}
+	Bishop, Christopher M.	\textit{Pattern Recognition and Machine Learning}. Springer, Cambridge, U.K., 2006.
+\end{thebibliography}
+
+
+\end{document}
