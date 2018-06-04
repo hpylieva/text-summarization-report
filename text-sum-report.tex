@@ -40,6 +40,17 @@
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage[sort, numbers]{natbib}
+\graphicspath{img/}
+
+\usepackage{caption}
+\DeclareCaptionFormat{citation}{%
+   \ifx\captioncitation\relax\relax\else
+     \captioncitation\par
+   \fi
+   #1#2#3\par}
+\newcommand*\setcaptioncitation[1]{\def\captioncitation{\textit{Image source:}~#1}}
+\let\captioncitation\relax
+\captionsetup{format=citation,justification=centering}
 
 \begin{document}
 
@@ -62,7 +73,7 @@
 %----------------------------------------------------------------------------------------
 
 \HRule \\[0.4cm]
-{ \huge \bfseries Generative text summarization with Recurrent Neural
+{ \huge \bfseries Abstractive text summarization with Recurrent Neural
 	Networks}\\[10pt]
 {\Large \bfseries Machine Learning project report}\\[0.4cm] % Title of your document
 \HRule \\[1cm]
@@ -86,7 +97,7 @@ Hanna \textsc{Pylieva}\\Yuriy \textsc{Mykhalchuk}\\Irynei \textsc{Baran}\\[0.5cm
 %	LOGO SECTION
 %----------------------------------------------------------------------------------------
 
-\includegraphics[height=4cm]{UCU-Apps.png}\\[1cm] % Include a department/university logo - this will require the graphicx package
+\includegraphics[height=4cm]{img/UCU-Apps.png}\\[1cm] % Include a department/university logo - this will require the graphicx package
  
 %----------------------------------------------------------------------------------------
 
@@ -113,33 +124,97 @@ There are two prominent types of summarization algorithms.
 	\item Abstractive summarization generates new phrases, possibly rephrasing or using words that were not in the original text. Naturally abstractive approaches are harder as it involves robust natural language processing. For perfect abstractive summary, the model has to first understand the document and then express that understanding in succinct form possibly using new words and phrases.  Abstractive summarization has complex capabilities like generalization, paraphrasing and incorporating  real-world knowledge \cite{abstractive_text_summarization}.
 \end{itemize}
 
-Majority of the work has traditionally focused on extractive approaches due to the easy of defining hard-coded rules to select important sentences than generate new ones. Also, it promises grammatically correct and coherent summary. But they often don’t summarize long and complex texts well as they are very restrictive.
+Majority of the work has traditionally focused on extractive approaches due to the easy of defining hard-coded rules to select important sentences than generate new ones. Also, it promises grammatically correct and coherent summary. But they often don’t summarize long and complex texts well as they are very restrictive.
+
 
 Abstractive methods, on the other hand, provide highly powerful and promising results. That is why in this project we implemented an algorithm for abstractive text summarization to build solid understanding if this approach and discover how it can be improved.
 
 
 \section{Model}
+\subsection{Background}
+Models for abstractive text summarization fall under a larger deep learning category called
+sequence-to-sequence models, which map from an input sequence to a target sequence. This approach is illustrated on Figure~\ref{fig:seq-to-seq}. It was initially used for Neural Machine Translation as described in \cite{attention_based_NMT}. 
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{img/seq-to-seq.png}
+	\setcaptioncitation{\cite{attention_based_NMT}}
+	\caption{\label{fig:seq-to-seq}The model reads an input sentence “ABC” and produces “WXYZ” as the output 	sentence. The model stops making predictions after outputting the $<$eos$>$ token. It then starts 		 emiting one target word at a time. }
+\end{figure}
+
+
+An effective and standard approach to build sequence-to-sequence models is using Encoder-Decoder architecture that act as an encoder and a decoder pair. The encoder reads the entire input sequence and encodes it into an internal representation, often a fixed-length vector called the context vector. The decoder reads the encoded input sequence from the encoder and generates the output sequence. Both the encoder and the decoder submodels are trained jointly, meaning at the same time.
+
+Naturally we need the input and output to be of variable-length. This can not be reached with ordinary Deep Neural Networks (DNNs) which require that the dimensionality of the inputs and outputs is known and fixed. 
+
+The Recurrent Neural Networks (RNNs) are generalization of feedforward neural networks to sequences. Given a sequence of inputs $(x_1, ..., x_T)$, a standard RNN computes a
+sequence of outputs $(y_1, ..., y_T)$ by iterating the following equation \cite{seq2seq_with_NN} :
+
+\begin{equation}
+\begin{array}{l}
+	h_t = f(W^{hx}x_t + W^{hh}h_{t-1}) \\
+	y_t = W^{yh}h_t
+\end{array}
+\end{equation}
+where 
+$f$ - activation function,
+$x_{t}$ - input vector, 
+$h_{t}$ - hidden layer vector,
+$y_{t}$ - output vector,
+$W$ - parameter matrix
+ 
+ 
+An RNN can map sequences to sequences provided that the alignment between the inputs the
+outputs is known ahead. In other words RNN needs a defined one-to-one correspondence between a sequence of inputs and sequence of outputs which can be understood better from RNN unfold representation on Figure~\ref{fig:RNN}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/RNN.png}
+	\setcaptioncitation{Created by author}
+	\caption{\label{fig:RNN}Recurrent Neural Network}
+\end{figure}
+ 
+However, it is not clear how to apply an RNN to problems whose input and the output sequences have different lengths with complicated and non-monotonic relationships.
+
+The simplest strategy for general sequence learning is to map the input sequence to a fixed-sized
+vector using one RNN, and then to map the vector to the target sequence with another RNN (the
+approach is represented in \cite{baseline_NMT}). Since the RNN is provided with all the relevant information this will work, whereas due to the resulting long term dependencies, it will be difficult to train the RNN. Here Long Short-Term Memory (LSTM) layers will come in handy as they are known to learn problems with long range temporal dependencies \cite{LSTM_baseline} and will succeed in this setting.
+
+
 \subsection{Overview}
-Models for abstractive summarization fall under a larger deep learning category called
-sequence-to-sequence models, which map from an input sequence to a target sequence. 
-We used \cite{basic-article} as a baseline of our work.
+
+The goal of LSTM in general is to estimate the conditional probability of outpuy sequence by input sequence $p(y_1, ..., y_{T′}|x_1, ..., x_T )$ when lengths of those sequences are possibly: $T' \neq T$. 
+An LSTM computes this conditional probability by first obtaining the fixed dimensional
+representation $v$ of the input sequence $(x_1, ..., x_T)$ given by the last hidden state of the LSTM, and then computing the probability of $y1, ..., y{T′}$ with a standard LSTM-LM
+\footnote{Language Model (LM) is a probability distribution over sequences of words. LSTM-LM is algorithm of using an LSTM (and softmax function) to predict the next word given your previous words.} 
+formulation whose initial hidden state is set to the representation $v$ of  $x_1, ..., x_T$:
+
+$$p(y_1, ..., y_{T′}|x_1, ..., x_T ) = \prod_{t=1}^{T'} p(y_t|v, y_1, ..., y_{t-1}) $$
+
 
 
 \begin{thebibliography}{9}
 	\bibitem{baseline_NMT}
-	Bahdanau,D.; Cho,K.; Bengio Y. \textit{Neural machine translation by jointly
-	learning to align and translate}. CoRR, abs/1409.0473, 2014. \url{ http://arxiv.org/
-	abs/1409.0473}.
+	Bahdanau,D.; Cho,K.; Bengio Y. \textit{Neural machine translation by jointly learning to align and translate}. CoRR, abs/1409.0473, 2014. \url{ http://arxiv.org/abs/1409.0473}.
 	
 	\bibitem{text_sum_survey}
 	Gambhir, M. and Gupta, V. \textit{Recent automatic text summarization techniques: a survey}. Artificial Intelligence Review, 47(1):1-66, 2017.
 	
 	\bibitem{abstractive_text_summarization}
 	Singhal,S. and Bhattacharya, A. \textit{Abstractive Text Summarization}. Department of Computer Science IIT Kanpur, 2017.
-	 
+	
+	\bibitem{attention_based_NMT}
+	Minh Thang Luong; Hieu Pham; Christopher D. Manning. \textit{Effective Approaches to Attention-based Neural Machine Translation}. CoRR, abs/1508.04025, 2015. \url{http://arxiv.org/abs/1508.04025}
+	
+	\bibitem{seq2seq_with_NN}
+	Ilya Sutskever; Oriol Vinyals; Quoc V. Le \textit{Sequence to Sequence Learning with Neural Networks}. CoRR, abs/1409.3215, 2014. \url{http://arxiv.org/abs/1409.3215}
+	
+	\bibitem{LSTM_baseline}	
+	S. Hochreiter and J. Schmidhuber. \textit{Long short-term memory}. Neural Computation, 1997.
+		 
 	\bibitem{basic-article}
-	Lopyrev, K.\textit{ Generating News Headlines with Recurrent Neural
-	Networks}. CoRR, abs/1512.01712, 2015.
+	Lopyrev, K.\textit{Generating News Headlines with Recurrent Neural 	Networks}. CoRR, abs/1512.01712, 2015.
 	
 	\bibitem{bishop}
 	Bishop, Christopher M.	\textit{Pattern Recognition and Machine Learning}. Springer, Cambridge, U.K., 2006.
