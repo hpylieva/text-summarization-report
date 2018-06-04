@@ -178,20 +178,28 @@ outputs is known ahead. In other words RNN needs a defined one-to-one correspond
 However, it is not clear how to apply an RNN to problems whose input and the output sequences have different lengths with complicated and non-monotonic relationships.
 
 The simplest strategy for general sequence learning is to map the input sequence to a fixed-sized
-vector using one RNN, and then to map the vector to the target sequence with another RNN (the
-approach is represented in \cite{baseline_NMT}). Since the RNN is provided with all the relevant information this will work, whereas due to the resulting long term dependencies, it will be difficult to train the RNN. Here Long Short-Term Memory (LSTM) layers will come in handy as they are known to learn problems with long range temporal dependencies \cite{LSTM_baseline} and will succeed in this setting.
+vector using one RNN, and then to map that vector to the target sequence with another RNN (the
+approach is represented in \cite{baseline_NMT}). Since the RNN is provided with all the relevant information this will work. Whereas the need to store information over extended time interval will lead to difficulties with training RNN (vanishing gradient problem/exploding gradientt problem explained in \cite{LSTM_baseline}).
+Here Long Short-Term Memory (LSTM) layers will come in handy as they are known to learn problems with long range temporal dependencies and will succeed in this setting.
 
-
-\subsection{Overview}
+\subsubsection{LSTM}
 
 The goal of LSTM in general is to estimate the conditional probability of outpuy sequence by input sequence $p(y_1, ..., y_{T′}|x_1, ..., x_T )$ when lengths of those sequences are possibly: $T' \neq T$. 
 An LSTM computes this conditional probability by first obtaining the fixed dimensional
-representation $v$ of the input sequence $(x_1, ..., x_T)$ given by the last hidden state of the LSTM, and then computing the probability of $y1, ..., y{T′}$ with a standard LSTM-LM
+representation $v$ of the input sequence $(x_1, ..., x_T)$ given by the last hidden state of the LSTM, and then computing the probability of $y_1, ..., y_{T′}$ with a standard LSTM-LM
 \footnote{Language Model (LM) is a probability distribution over sequences of words. LSTM-LM is algorithm of using an LSTM (and softmax function) to predict the next word given your previous words.} 
 formulation whose initial hidden state is set to the representation $v$ of  $x_1, ..., x_T$:
 
 $$p(y_1, ..., y_{T′}|x_1, ..., x_T ) = \prod_{t=1}^{T'} p(y_t|v, y_1, ..., y_{t-1}) $$
 
+
+In this equation, each $p(y_t|v, y_1, ..., y_{t-1})$ distribution is represented with a softmax over all the
+words in the vocabulary \cite{seq2seq_with_NN}.
+
+Taking into consideration all above and having processed prominent researches on abstractive summarization topic we've built 
+an encoder-decoder recurrent neural network with LSTM units and attention to generating headlines from the text of news articles.
+
+\subsection{Overview}
 
 
 \begin{thebibliography}{9}
@@ -216,9 +224,9 @@ $$p(y_1, ..., y_{T′}|x_1, ..., x_T ) = \prod_{t=1}^{T'} p(y_t|v, y_1, ..., y_{
 	\bibitem{basic-article}
 	Lopyrev, K.\textit{Generating News Headlines with Recurrent Neural 	Networks}. CoRR, abs/1512.01712, 2015.
 	
-	\bibitem{bishop}
-	Bishop, Christopher M.	\textit{Pattern Recognition and Machine Learning}. Springer, Cambridge, U.K., 2006.
-\end{thebibliography}
+%	\bibitem{bishop}
+%	Bishop, Christopher M.	\textit{Pattern Recognition and Machine Learning}. %Springer, Cambridge, U.K., 2006.
+%\end{thebibliography}
 
 
 \end{document}
