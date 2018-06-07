@@ -144,7 +144,7 @@ sequence-to-sequence models, which map from an input sequence to a target sequen
 \end{figure}
 
 
-An effective and standard approach to build sequence-to-sequence models is using Encoder-Decoder architecture that act as an encoder and a decoder pair. The encoder reads the entire input sequence and encodes it into an internal representation, often a fixed-length vector called the context vector. The decoder reads the encoded input sequence from the encoder and generates the output sequence. Both the encoder and the decoder submodels are trained jointly, meaning at the same time.
+An effective and standard approach to build sequence-to-sequence models is using Encoder-Decoder architecture that act as an encoder and a decoder pair. The encoder reads the entire input sequence and encodes it into an internal representation, often a fixed-length vector called the context vector. The decoder reads the encoded input sequence and generates the output sequence. Both the encoder and the decoder submodels are trained jointly, i.e. at the same time.
 
 Naturally we need the input and output to be of variable-length. This can not be reached with ordinary Deep Neural Networks (DNNs) which require that the dimensionality of the inputs and outputs is known and fixed. 
 
@@ -196,10 +196,38 @@ $$p(y_1, ..., y_{T′}|x_1, ..., x_T ) = \prod_{t=1}^{T'} p(y_t|v, y_1, ..., y_{
 In this equation, each $p(y_t|v, y_1, ..., y_{t-1})$ distribution is represented with a softmax over all the
 words in the vocabulary \cite{seq2seq_with_NN}.
 
-Taking into consideration all above and having processed prominent researches on abstractive summarization topic we've built 
-an encoder-decoder recurrent neural network with LSTM units and attention to generating headlines from the text of news articles.
+Taking into consideration all above and having processed prominent researches on abstractive summarization topic we've built an encoder-decoder recurrent neural network with LSTM units and attention mechanism to generate headlines from the text of news articles. We took the model described in \cite{basic-article} as baseline, but performed some modifications according to available software restrictions.
 
 \subsection{Overview}
+In our model encoder and decoder get more precise descriptions. 
+
+\subsubsection{Encoder}
+The input of encoder (Figure~\ref{fig:encoder}) consists of article's text of restricted size followed by an end-of-sequence symbol (EOS - in code we used '$<>$') followed by header. Each word of input is first passed through an embedding layer which transforms it into a distributed representation. So now each word has a corresponding vector $w \in R^d$.
+In our case encoder consists of 2 LSTMs, both on hidden layer. We run the stacked LSTMs over the sequence of vectors and store the last hidden state - this is encoder representation $e$, which is passed to decoder.  
+
+\begin{figure}[h]
+\centering
+	\includegraphics[width=0.5\textwidth]{img/seq2seq_vanilla_encoder.png}
+	\setcaptioncitation{\url{https://guillaumegenthial.github.io/sequence-to-sequence.html}}
+	\caption{\label{fig:encoder}LSTM based Encoder}
+\end{figure}
+
+\subsubsection{Decoder}
+The decoder takes as input the hidden layers generated after feeding in the last word of the input text. First, an end-of-sequence symbol '$<>$' is fed in as input, again using an embedding layer to transform the symbol into a distributed representation. Then using a softmax layer and the attention mechanism, described in the next section, the decoder generates a sequence of words as headline, ending with an end-of-sequence symbol. The $i^{th}$ generated word is fed in as input for generating $(i+1)^{st}$ word (on testing phase). 
+
+
+In implementation of decoder we used so called "teacher forcing" \cite{deep_learning_basic} approach. On training phase instead of feeding in as input of new generative step the freshly generated word, the expected word from the actual headline is fed in. Whereas, during testing the previously
+generated word is fed in when generating the next word. This leads to a disconnect between training
+and testing. To overcome this disconnect, during training we randomly feed in a generated word,
+instead of the expected word, as suggested in \cite{scheduled_sampling}. Specifically, we do this for 10% of cases. 
+
+On decoding phase a softmax activation function is used to output a likelihood of each word in the vocabulary being the next word in the sequence. The task of decoder is to find the most likely output sequence. Due to big vocabulary size the search problem through all the possible output sequences based on their likelihood is exponential in length of the output sequence and is NP-complete. That is why it is common to use approximate methods. We used beam search as it is a little 'smarter' than greedy search.
+
+
+\todo{Correct the following}
+During testing 
+we use a beam-search decoder which generates input words one at a
+time, at each step extending the B highest probability sequences.
 
 
 \begin{thebibliography}{9}
@@ -216,7 +244,7 @@ an encoder-decoder recurrent neural network with LSTM units and attention to gen
 	Minh Thang Luong; Hieu Pham; Christopher D. Manning. \textit{Effective Approaches to Attention-based Neural Machine Translation}. CoRR, abs/1508.04025, 2015. \url{http://arxiv.org/abs/1508.04025}
 	
 	\bibitem{seq2seq_with_NN}
-	Ilya Sutskever; Oriol Vinyals; Quoc V. Le \textit{Sequence to Sequence Learning with Neural Networks}. CoRR, abs/1409.3215, 2014. \url{http://arxiv.org/abs/1409.3215}
+	Ilya Sutskever, Oriol Vinyals, Quoc V. Le \textit{Sequence to Sequence Learning with Neural Networks}. CoRR, abs/1409.3215, 2014. \url{http://arxiv.org/abs/1409.3215}
 	
 	\bibitem{LSTM_baseline}	
 	S. Hochreiter and J. Schmidhuber. \textit{Long short-term memory}. Neural Computation, 1997.
@@ -224,9 +252,16 @@ an encoder-decoder recurrent neural network with LSTM units and attention to gen
 	\bibitem{basic-article}
 	Lopyrev, K.\textit{Generating News Headlines with Recurrent Neural 	Networks}. CoRR, abs/1512.01712, 2015.
 	
+	\bibitem{deep_learning_basic}
+	Ian Goodfellow, Yoshua Bengio, Aaron Courville \textit{Deep Learning}. MIT Press. 2016. \url{http://www.deeplearningbook.org/}
+	
+	\bibitem{scheduled_sampling}
+	Samy Bengio, Oriol Vinyals, Navdeep Jaitly, and Noam Shazeer. \textit{Scheduled sampling for sequence
+prediction with recurrent neural networks}. CoRR, abs/1506.03099, 2015. \url{http://arxiv.org/abs/1506.03099}
+	
 %	\bibitem{bishop}
 %	Bishop, Christopher M.	\textit{Pattern Recognition and Machine Learning}. %Springer, Cambridge, U.K., 2006.
-%\end{thebibliography}
+\end{thebibliography}
 
 
 \end{document}
