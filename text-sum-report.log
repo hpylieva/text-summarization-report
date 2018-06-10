@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.15)  10 JUN 2018 14:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.15)  10 JUN 2018 15:08
 entering extended mode
 **./text-sum-report.tex
 (text-sum-report.tex
@@ -729,7 +729,7 @@ LaTeX Info: Redefining \nameref on input line 58.
 \openout4 = `text-sum-report.out'.
 
 
-<img/UCU-Apps.png, id=54, 2209.50468pt x 980.91469pt>
+<img/UCU-Apps.png, id=66, 2209.50468pt x 980.91469pt>
 File: img/UCU-Apps.png Graphic file (type png)
  <use img/UCU-Apps.png>
 Package pdftex.def Info: img/UCU-Apps.png used on input line 103.
@@ -756,7 +756,7 @@ File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
 <to be read again> 
                    \relax 
 l.140 
-       [1] <img/seq-to-seq.png, id=81, 293.095pt x 186.6975pt>
+       [1] <img/seq-to-seq.png, id=93, 293.095pt x 186.6975pt>
 File: img/seq-to-seq.png Graphic file (type png)
 
 <use img/seq-to-seq.png>
@@ -768,7 +768,7 @@ Overfull \hbox (5.03172pt too wide) in paragraph at lines 150--151
 equence mod-els is us-ing Encoder-
  []
 
-<img/RNN.png, id=86, 745.78625pt x 201.75375pt>
+<img/RNN.png, id=98, 745.78625pt x 201.75375pt>
 File: img/RNN.png Graphic file (type png)
  <use img/RNN.png>
 Package pdftex.def Info: img/RNN.png used on input line 175.
@@ -778,7 +778,7 @@ Package pdftex.def Info: img/RNN.png used on input line 175.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [2 <./img/seq-to-seq.png>] [3 <./img/RNN.png>]
-<img/seq2seq-detailed.png, id=120, 584.9052pt x 335.8146pt>
+<img/seq2seq-detailed.png, id=132, 584.9052pt x 335.8146pt>
 File: img/seq2seq-detailed.png Graphic file (type png)
 
 <use img/seq2seq-detailed.png>
@@ -788,42 +788,42 @@ Package pdftex.def Info: img/seq2seq-detailed.png used on input line 228.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<img/seq2seq-with-attention.png, id=125, 466.74374pt x 398.48875pt>
+[4] <img/seq2seq-with-attention.png, id=146, 466.74374pt x 398.48875pt>
 File: img/seq2seq-with-attention.png Graphic file (type png)
 
 <use img/seq2seq-with-attention.png>
-Package pdftex.def Info: img/seq2seq-with-attention.png used on input line 264.
+Package pdftex.def Info: img/seq2seq-with-attention.png used on input line 265.
 
 (pdftex.def)             Requested size: 234.8775pt x 200.53293pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[4] [5 <./img/seq2seq-detailed.png>]
-Underfull \hbox (badness 1642) in paragraph at lines 311--312
+[5 <./img/seq2seq-detailed.png>] [6 <./img/seq2seq-with-attention.png>]
+Underfull \hbox (badness 1642) in paragraph at lines 315--316
 []\OT1/cmr/m/n/12 Lopyrev, K.\OT1/cmr/m/it/12 Generating News Head-lines with R
 e-cur-rent Neu-ral Net-works\OT1/cmr/m/n/12 . CoRR,
  []
 
-[6 <./img/seq2seq-with-attention.png>] [7]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 326.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 326.
+[7]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 330.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 330.
  (text-sum-report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 326.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 326.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 330.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 330.
 Package rerunfilecheck Info: File `text-sum-report.out' has not changed.
-(rerunfilecheck)             Checksum: C8CAB04E93928B46044F85273D167E69;717.
+(rerunfilecheck)             Checksum: 6D0A4ABB3CD00497A4AA24026058C7E3;880.
 
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 326.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 330.
  ) 
 Here is how much of TeX's memory you used:
- 18998 strings out of 493323
- 349908 string characters out of 3139065
- 439165 words of memory out of 3000000
- 22162 multiletter control sequences out of 15000+200000
+ 19010 strings out of 493323
+ 350132 string characters out of 3139065
+ 438263 words of memory out of 3000000
+ 22169 multiletter control sequences out of 15000+200000
  13657 words of font info for 49 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,9n,92p,645b,830s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -844,9 +844,9 @@ onts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
 amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt
 10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on text-sum-report.pdf (8 pages, 548208 bytes).
+Output written on text-sum-report.pdf (8 pages, 548882 bytes).
 PDF statistics:
- 233 PDF objects out of 1000 (max. 8388607)
- 40 named destinations out of 1000 (max. 500000)
- 134 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 248 PDF objects out of 1000 (max. 8388607)
+ 45 named destinations out of 1000 (max. 500000)
+ 158 words of extra memory for PDF output out of 10000 (max. 10000000)
 
