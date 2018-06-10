@@ -41,7 +41,9 @@
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage[sort, numbers]{natbib}
 \usepackage[font=small,labelfont=bf]{caption}
+\usepackage[hidelinks]{hyperref}
 \graphicspath{img/}
+
 
 \usepackage{caption}
 \DeclareCaptionFormat{citation}{%
@@ -141,13 +143,13 @@ sequence-to-sequence models, which map from an input sequence to a target sequen
 	\centering
 	\includegraphics[width=0.5\textwidth]{img/seq-to-seq.png}
 	\setcaptioncitation{\cite{attention_based_NMT}}
-	\caption{\label{fig:seq-to-seq}The model reads an input sentence “ABC” and produces “XYZ” as the output 	sentence. The model stops making predictions after outputting the $<$eos$>$ token. It then starts 		 emiting one target word at a time. }
+	\caption{\label{fig:seq-to-seq}The model reads an input sentence “ABC” and produces “XYZ” as the output 	sentence. The model stops making predictions after outputting the $<$eos$>$ token. It then starts 	emiting one target word at a time. }
 \end{figure}
 
 
 An effective and standard approach to build sequence-to-sequence models is using Encoder-Decoder architecture that act as an encoder and a decoder pair. The encoder reads the entire input sequence and encodes it into an internal representation, often a fixed-length vector called the context vector. The decoder reads the encoded input sequence and generates the output sequence. Both the encoder and the decoder submodels are trained jointly, i.e. at the same time.
 
-Naturally we need the input and output to be of variable-length. This can not be reached with ordinary Deep Neural Networks (DNNs) which require that the dimensionality of the inputs and outputs is known and fixed. 
+Naturally we need the input and output to be of variable length. This can not be reached with ordinary Deep Neural Networks (DNNs) which require that the dimensionality of the inputs and outputs is known and fixed. 
 
 The Recurrent Neural Networks (RNNs) are generalization of feedforward neural networks to sequences. Given a sequence of inputs $(x_1, ..., x_T)$, a standard RNN computes a
 sequence of outputs $(y_1, ..., y_T)$ by iterating the following equation \cite{seq2seq_with_NN} :
@@ -184,10 +186,10 @@ Here Long Short-Term Memory (LSTM) layers will come in handy as they are known t
 
 \subsubsection{LSTM}
 
-The goal of LSTM in general is to estimate the conditional probability of output sequence by input sequence $p(y_1, ..., y_{T′}|x_1, ..., x_T )$ when lengths of those sequences are possibly: $T' \neq T$. 
+The goal of LSTM is to estimate the conditional probability of output sequence by input sequence $p(y_1, ..., y_{T′}|x_1, ..., x_T )$ when lengths of those sequences are possibly $T' \neq T$. 
 An LSTM computes this conditional probability by first obtaining the fixed dimensional
 representation $v$ of the input sequence $(x_1, ..., x_T)$ given by the last hidden state of the LSTM, and then computing the probability of $y_1, ..., y_{T′}$ with a standard LSTM-LM
-\footnote{Language Model (LM) is a probability distribution over sequences of words. LSTM-LM is algorithm of using an LSTM (and softmax function) to predict the next word given your previous words.} 
+\footnote{Language Model (LM) is a probability distribution over sequences of words. LSTM-LM is an algorithm of using an LSTM (and softmax function) to predict the next word given your previous words.} 
 formulation whose initial hidden state is set to the representation $v$ of  $x_1, ..., x_T$:
 
 $$p(y_1, ..., y_{T′}|x_1, ..., x_T ) = \prod_{t=1}^{T'} p(y_t|v, y_1, ..., y_{t-1}) $$
