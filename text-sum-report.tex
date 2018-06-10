@@ -202,33 +202,59 @@ Taking into consideration all above and having processed prominent researches on
 In our model encoder and decoder get more precise descriptions. 
 
 \subsubsection{Encoder}
-The input of encoder (Figure~\ref{fig:encoder}) consists of article's text of restricted size followed by an end-of-sequence symbol (EOS - in code we used '$<>$') followed by header. Each word of input is first passed through an embedding layer which transforms it into a distributed representation. So now each word has a corresponding vector $w \in R^d$.
-In our case encoder consists of 2 LSTMs, both on hidden layer. We run the stacked LSTMs over the sequence of vectors and store the last hidden state - this is encoder representation $e$, which is passed to decoder.  
+The input of encoder (Figure~\ref{fig:encoder}) consists of article's text of restricted size followed by an end-of-sequence symbol ($w_{EOS}$, in code we used '$<>$') followed by header. Each word of input is first passed through an embedding layer which transforms it into a distributed representation. So now each word has a corresponding vector $w \in R^d$.
+In our case encoder consists of 2 LSTMs, both on hidden layer. We run the stacked LSTMs over the sequence of vectors and store the last hidden state - this is encoder representation $e$, which will be used to generate by decoder to generate the target sequence word by word.   
+
+%\begin{figure}[h]
+%\centering
+%	\includegraphics[width=0.45\textwidth]{img/seq2seq_vanilla_encoder.png}
+%	\setcaptioncitation{\url{https://guillaumegenthial.github.io/sequence-to-sequence.html}}
+%	\caption{\label{fig:encoder}LSTM-based Encoder}
+%\end{figure}
+
+\subsubsection{Decoder}
+\todo{Does this section looks ok with index 0 in the beginning and t in the end?}
+Our decoder consist of 1 LSTM cell. We feed $e$ as  hidden state and $w_{eos}$ symbol into decoder as input. The LSTM computes the next hidden state $h_0 \in R^h$. Then a function $f: R^h \rightarrow R^V$ is applied so that $s_0 := g(h_0) \in R^V$ is a vector of the same size as vocabulary. Then a softmax is applied to $s_0$ to normalize it into a vector of likelihood of each word in the vocabulary being the next word in the sequence. The task of decoder is to find the most likely output sequence. Due to big vocabulary size the search problem through all the possible output sequences based on their likelihood is exponential in length of the output sequence and is NP-complete. That is why it is common to use approximate methods. We used beam search and were keeping in memory 10 best output sequences (hypotheses) to eventually opt for the best combination of words. On each step after we've found the index $i_t$ of the desired word, we get a vector $w_{i_t}$ corresponding to it and repeat the procedure: LSTM is fed with the hidden state $h_t$ and a word $w_{i_t}$, it will output the next word in output sequence. The process repeats until $w_{eos}$ is generated.
 
 \begin{figure}[h]
 \centering
-	\includegraphics[width=0.5\textwidth]{img/seq2seq_vanilla_encoder.png}
+	\includegraphics[width=0.7\textwidth]{img/seq2seq-detailed1.png}
 	\setcaptioncitation{\url{https://guillaumegenthial.github.io/sequence-to-sequence.html}}
-	\caption{\label{fig:encoder}LSTM based Encoder}
+	\caption{\label{fig:encoder}LSTM-based sequence to sequence model}
 \end{figure}
 
-\subsubsection{Decoder}
-The decoder takes as input the hidden layers generated after feeding in the last word of the input text. First, an end-of-sequence symbol '$<>$' is fed in as input, again using an embedding layer to transform the symbol into a distributed representation. Then using a softmax layer and the attention mechanism, described in the next section, the decoder generates a sequence of words as headline, ending with an end-of-sequence symbol. The $i^{th}$ generated word is fed in as input for generating $(i+1)^{st}$ word (on testing phase). 
-
-
-In implementation of decoder we used so called "teacher forcing" \cite{deep_learning_basic} approach. On training phase instead of feeding in as input of new generative step the freshly generated word, the expected word from the actual headline is fed in. Whereas, during testing the previously
-generated word is fed in when generating the next word. This leads to a disconnect between training
+The described process corresponds to testing phase. On training phase instead of feeding in as input of new generative step the freshly generated word, the expected word from the actual headline is fed in. This leads to a disconnect between training
 and testing. To overcome this disconnect, during training we randomly feed in a generated word,
-instead of the expected word, as suggested in \cite{scheduled_sampling}. Specifically, we do this for 10% of cases. 
-
-On decoding phase a softmax activation function is used to output a likelihood of each word in the vocabulary being the next word in the sequence. The task of decoder is to find the most likely output sequence. Due to big vocabulary size the search problem through all the possible output sequences based on their likelihood is exponential in length of the output sequence and is NP-complete. That is why it is common to use approximate methods. We used beam search as it is a little 'smarter' than greedy search.
+instead of the expected word, as suggested in \cite{scheduled_sampling}. Specifically, we do this for 10\% of cases. This approach is called "teacher forcing".
 
 
-\todo{Correct the following}
-During testing 
-we use a beam-search decoder which generates input words one at a
-time, at each step extending the B highest probability sequences.
+%\begin{equation}
+%\begin{array}{l}
+%	h_0 = LSTM(e, [w_{eos}, c_t]) \\
+%	s_0 = g(h_0) \\
+%	p_0 = softmax(s_0)\\
+%	i_0 = argmax(p_0)\\
+%	
+%	t = 1\\
+%	while \; w_{i{t-1}} \neq w_{eos}:\\
+%\quad		h_t = LSTM(e, [w_{i{t-1}}, c_t])\\
+%\quad		s_t = g(h_t)\\
+%\quad		p_t = softmax(s_t)\\
+%\quad		i_t = argmax(p_t)\\
+%\quad		t += 1	\\
+%\end{array}
+%\end{equation}
 
+
+\subsubsection{Attention} \label{attention}
+Attention is a mechanism that addresses a limitation of the encoder-decoder architecture on long sequences, and that in general speeds up the learning and lifts the skill of the model on sequence to sequence prediction problems. The attention mechanism is used when outputting each word in the decoder. For each output word the attention mechanism computes a weight over each of the input
+words that determines how much attention should be paid to that input word. The weights sum up to
+1, and are used to compute a weighted average of the last hidden layers generated after processing
+each of the input words. This weighted average, referred to as the context, is then input into the
+softmax layer along with the last hidden layer from the current step of the decoding.
+
+
+\subsubsection{Training details}
 
 \begin{thebibliography}{9}
 	\bibitem{baseline_NMT}
@@ -252,15 +278,16 @@ time, at each step extending the B highest probability sequences.
 	\bibitem{basic-article}
 	Lopyrev, K.\textit{Generating News Headlines with Recurrent Neural 	Networks}. CoRR, abs/1512.01712, 2015.
 	
-	\bibitem{deep_learning_basic}
-	Ian Goodfellow, Yoshua Bengio, Aaron Courville \textit{Deep Learning}. MIT Press. 2016. \url{http://www.deeplearningbook.org/}
-	
 	\bibitem{scheduled_sampling}
 	Samy Bengio, Oriol Vinyals, Navdeep Jaitly, and Noam Shazeer. \textit{Scheduled sampling for sequence
 prediction with recurrent neural networks}. CoRR, abs/1506.03099, 2015. \url{http://arxiv.org/abs/1506.03099}
 	
+%	\bibitem{deep_learning_basic}
+%	Ian Goodfellow, Yoshua Bengio, Aaron Courville \textit{Deep Learning}. MIT Press. 2016. \url{http://www.deeplearningbook.org/}
+	
 %	\bibitem{bishop}
 %	Bishop, Christopher M.	\textit{Pattern Recognition and Machine Learning}. %Springer, Cambridge, U.K., 2006.
+
 \end{thebibliography}
 
 
