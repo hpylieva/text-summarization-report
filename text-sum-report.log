@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.15)  10 JUN 2018 19:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.15)  10 JUN 2018 20:29
 entering extended mode
 **./text-sum-report.tex
 (text-sum-report.tex
@@ -738,40 +738,42 @@ Package pdftex.def Info: img/UCU-Apps.png used on input line 103.
 [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <./img/UCU-Apps.png>]
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 113.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 125.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 124.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 125.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 124.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\ucs\uni-32.def"
 File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
-)pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
- been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.140 
-       [1] <img/seq-to-seq.png, id=93, 293.095pt x 186.6975pt>
+)
+<img/seq-to-seq.png, id=81, 293.095pt x 186.6975pt>
 File: img/seq-to-seq.png Graphic file (type png)
-
-<use img/seq-to-seq.png>
-Package pdftex.def Info: img/seq-to-seq.png used on input line 144.
+ <use img/seq-to-seq.png>
+Package pdftex.def Info: img/seq-to-seq.png used on input line 143.
 (pdftex.def)             Requested size: 234.8775pt x 149.61172pt.
 
-Overfull \hbox (5.03172pt too wide) in paragraph at lines 150--151
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Overfull \hbox (5.03172pt too wide) in paragraph at lines 149--150
 []\OT1/cmr/m/n/12 An ef-fec-tive and stan-dard ap-proach to build sequence-to-s
 equence mod-els is us-ing Encoder-
  []
 
-<img/RNN.png, id=98, 745.78625pt x 201.75375pt>
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.150 
+       [1] <img/RNN.png, id=96, 745.78625pt x 201.75375pt>
 File: img/RNN.png Graphic file (type png)
  <use img/RNN.png>
-Package pdftex.def Info: img/RNN.png used on input line 175.
+Package pdftex.def Info: img/RNN.png used on input line 174.
 (pdftex.def)             Requested size: 281.85587pt x 76.24854pt.
 
 
@@ -782,100 +784,101 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: img/seq2seq-detailed.png Graphic file (type png)
 
 <use img/seq2seq-detailed.png>
-Package pdftex.def Info: img/seq2seq-detailed.png used on input line 228.
+Package pdftex.def Info: img/seq2seq-detailed.png used on input line 227.
 (pdftex.def)             Requested size: 375.80544pt x 215.77121pt.
  [4 <./img/seq2seq-detailed.png>]
-<img/seq2seq-with-attention.png, id=145, 466.74374pt x 398.48875pt>
+<img/seq2seq-with-attention.png, id=146, 466.74374pt x 398.48875pt>
 File: img/seq2seq-with-attention.png Graphic file (type png)
 
 <use img/seq2seq-with-attention.png>
-Package pdftex.def Info: img/seq2seq-with-attention.png used on input line 265.
+Package pdftex.def Info: img/seq2seq-with-attention.png used on input line 264.
 
 (pdftex.def)             Requested size: 234.8775pt x 200.53293pt.
  [5 <./img/seq2seq-with-attention.png>]
 [6]
-Underfull \hbox (badness 5022) in paragraph at lines 341--342
+Underfull \hbox (badness 5022) in paragraph at lines 353--354
 []\OT1/cmr/m/n/12 Sydney-based strate-gic in-te-grated
  []
 
 
-Underfull \hbox (badness 1803) in paragraph at lines 341--342
+Underfull \hbox (badness 1803) in paragraph at lines 353--354
 \OT1/cmr/m/n/12 the busi-ness ex-pan-sion, they are
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 358--359
+Underfull \hbox (badness 10000) in paragraph at lines 370--371
 []\OT1/cmr/m/n/12 Toronto-Dominion Bank
  []
 
 
-Underfull \hbox (badness 6428) in paragraph at lines 358--359
+Underfull \hbox (badness 6428) in paragraph at lines 370--371
 \OT1/cmr/m/n/12 Re-ceives $56.75 Av-er-age
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 371--372
-[]\OT1/cmr/m/n/12 Toronto-Dominion Bank
+Underfull \hbox (badness 10000) in paragraph at lines 387--388
+[]\OT1/cmr/m/n/12 Lockscreen Man-age-ment
  []
 
 
-Underfull \hbox (badness 6428) in paragraph at lines 371--372
-\OT1/cmr/m/n/12 Re-ceives $56.75 Av-er-age
- []
-
-
-Overfull \hbox (36.00003pt too wide) in paragraph at lines 336--380
+Overfull \hbox (36.00003pt too wide) in paragraph at lines 348--391
  [][] 
  []
 
-[7]
-Underfull \hbox (badness 1642) in paragraph at lines 404--405
+[7] [8]
+Underfull \hbox (badness 1642) in paragraph at lines 423--424
 []\OT1/cmr/m/n/12 Lopyrev, K.\OT1/cmr/m/it/12 Generating News Head-lines with R
 e-cur-rent Neu-ral Net-works\OT1/cmr/m/n/12 . CoRR,
  []
 
-[8] [9]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 422.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 422.
+[9]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 441.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 441.
  (text-sum-report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 422.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 422.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 441.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 441.
 Package rerunfilecheck Info: File `text-sum-report.out' has not changed.
-(rerunfilecheck)             Checksum: 6D0A4ABB3CD00497A4AA24026058C7E3;880.
+(rerunfilecheck)             Checksum: 933AD66DF527F3C698E1FAB5B62B1D04;881.
 
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 422.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 441.
  ) 
 Here is how much of TeX's memory you used:
- 18970 strings out of 493323
- 349300 string characters out of 3139065
- 438098 words of memory out of 3000000
- 22129 multiletter control sequences out of 15000+200000
+ 18935 strings out of 493323
+ 348112 string characters out of 3139065
+ 439000 words of memory out of 3000000
+ 22082 multiletter control sequences out of 15000+200000
  13657 words of font info for 49 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,10n,92p,645b,830s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
-ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
-les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Program Files/MiK
-TeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9/
-fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
-ic/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
-ts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
-12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C
-:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program 
-Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKT
-eX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/f
-onts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
-1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
-amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt
-10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on text-sum-report.pdf (10 pages, 555870 bytes).
+ 62i,10n,92p,614b,549s stack positions out of 5000i,500n,10000p,200000b,50000s
+pdfTeX warning (dest): name{table.caption.6} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.caption.5} has been referenced but does not 
+exist, replaced by a fixed one
+
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Prog
+ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program File
+s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Program Files/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
+/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12
+.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/
+Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
+public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
+m/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10
+.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on text-sum-report.pdf (10 pages, 559322 bytes).
 PDF statistics:
- 257 PDF objects out of 1000 (max. 8388607)
- 45 named destinations out of 1000 (max. 500000)
+ 272 PDF objects out of 1000 (max. 8388607)
+ 57 named destinations out of 1000 (max. 500000)
  158 words of extra memory for PDF output out of 10000 (max. 10000000)
 

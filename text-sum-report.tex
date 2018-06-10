@@ -110,12 +110,11 @@ Hanna \textsc{Pylieva}\\Yuriy \textsc{Mykhalchuk}\\Irynei \textsc{Baran}\\[0.5cm
 
 
 \begin{abstract}
-\todo[inline, color=green!40]{Invent a meaningful abstract.}In this work, we cast text summarization as a sequence-to-sequence problem and apply the attentional encoder-decoder RNN that has been shown to be successful for Neural Machine Translation (NMT) \cite{baseline_NMT}.
+In this work, we describe the process of resolving abstactive text summarization task as sequence-to-sequence problem. We trained encoder-decoder LSTM-based model with attention mechanism for generating captions of news articles. 
 \end{abstract}
 
 \section{Introduction}
 
-\todo[inline, color=green!40]{Invent a meaningful introduction. Per Shelpuk: Good project will be dedicated to an important problem and have a clear vision of what value it can bring to the potential users. All stages will be explored and analyzed, the approach for each of them is selected thoughtfully, compared to the alternatives and clearly explained. The results are evaluated and explained (explanation should provide additional information, not just restating the results or the code in English).}
 In the modern Internet age, textual data is ever increasing. According to this each Internet user will highly benefit from condensing data while preserving the information and meaning. This idea is a driver of growing interest among the research community for developing new approaches to automatically summarize the text. Automatic text summarization system generates a short summary that captures the main ideas
 of an input text. Since the advent of text summarization in 1950s, researchers have been trying to improve techniques for generating machine summaries which are not worse than human made summaries \cite{text_sum_survey}.
   
@@ -198,7 +197,7 @@ $$p(y_1, ..., y_{T′}|x_1, ..., x_T ) = \prod_{t=1}^{T'} p(y_t|v, y_1, ..., y_{
 In this equation, each $p(y_t|v, y_1, ..., y_{t-1})$ distribution is represented with a softmax over all the
 words in the vocabulary \cite{seq2seq_with_NN}.
 
-Taking into consideration all above and having processed prominent researches on abstractive summarization topic we've built an encoder-decoder recurrent neural network with LSTM units and attention mechanism to generate headlines from the text of news articles. We took the model described in \cite{model-baseline-article} as baseline, but performed some modifications according to available software restrictions.
+Taking into consideration all above and having processed prominent researches on abstractive summarization topic we've built an encoder-decoder recurrent neural network with LSTM units and attention mechanism to generate headlines from the text of news articles. We took the model described in \cite{model-baseline-article} as baseline, but performed some modifications according to available software restrictions. We used the next repository as a reference point of how to build the whole process: \url{https://github.com/udibr/headlines}.
 
 \subsection{Overview}
 In our model encoder and decoder get more precise descriptions.
@@ -275,31 +274,30 @@ Colaboratory is free and allows a group of users edit one Jupyter notebook simul
 
 Our solution is implemented on Python3, the model is built on Keras with Tensorflow backend. 
 
-According to RAM limitation and politics of Google Colaboratory to switch off processes which run for mote than 12 hours (to prevent cryptocurrency mining on the tool), we had issues during training as it was insufficient for our purposes. Mostly the models like the one described are run during 3-8 days in case of one GPU as they use a big input data set and deep LSTMs. As we had only 1 GPU, the maximum model characteristics which allowed us run at least one epoch in a time without fails were the following:
+According to RAM limitation and politics of Google Colaboratory to switch off processes which run for mote than 12 hours (to prevent cryptocurrency mining on the tool), we had issues during training as it was insufficient for our purposes. Mostly the models like the one described are run during 3-8 days in case of one GPU as they use a big input dataset and deep LSTMs. As we had only 1 GPU, the maximum model characteristics which allowed us run at least one epoch in a time without fails were the following:
 
 \begin{itemize}
-\setlength\itemsep{-0.1em}
+\setlength\itemsep{-0.5em}
 \item Maximum length of description (in words): 25 . Description is article. So we took only 25 first words from each article. 
 \item Maximum length of header (in words): 25. Header is caption of article.
 \item Number of RNN (LSTM) layers: 3
 \item Dimensionality of output from RNN: 128
 \item Batch-size: 64
 \item Vocabulary size: 40000
-\item Size of input data set(number of articles): 100000 (10 times less than the size of dowloaded data set from the source)
+\item Size of input dataset(number of articles): 100000 (10 times less than the size of dowloaded dataset from the source)
 \item Learning rate: started with 0.01, then changed to 0.0001
 \end{itemize}
 
 As we experienced "Runtime died" frequently, our model saves weights after each epoch. Each epoch took up to 1 hour a The best loss we reached on validation set was 7.8181 (started from 20.0). We managed to run our model for at most 8 epochs without failures.
 
-
 \section{Dataset}
 \subsection{Overview}
 We used \href{http://research.signalmedia.co/newsir16/signal-dataset.html}{The Signal Media One-Million News Articles Dataset}. It contains 1 million articles that are mainly English, but they also include non-English and multi-lingual articles. Sources of these articles include major ones, such as Reuters, in addition to local news sources and blogs.
 
-The file is originally in JSONL format. After converting it into standard JSON we obtained a set of articles, each with the following fields:
+The file is in JSONL format, where each line is a JSON object representing an article. Each article has the following fields:
 
 \begin{itemize}
-\setlength\itemsep{-0.1em}
+\setlength\itemsep{-0.5em}
 \item id: a unique identifier for the article
 \item title: the title of the article
 \item content: the textual content of the article (may occasionally contain HTML and JavaScript content)
@@ -311,7 +309,25 @@ The file is originally in JSONL format. After converting it into standard JSON w
 We extracted only "content" and "title" fields, then placed them into .pkl to make reads more convenient.
 
 \subsection{Preprocessing}
-\todo[inline, color=green!40]{Start with reformatting that strange JSON that theyy had. Then, all the stuff we do in vocabulary-embedding part}
+During data preprocessing we did the following:
+
+\begin{enumerate}
+\setlength\itemsep{-0.5em}
+\item Convert the original file into standard JSON format and leave only "content" and "title" fields.
+\item Leave only two sentences in descriptions
+\item Tokenize data using nltk’s Punkt tokenizer
+\item Get vocabulary and words counts of all words in dataset
+\item Index all words in vocabulary Create mappings from words to indexes and vice versa
+\item Read GloVe embeddings (with dimetionality of vectors 100), set embeddings for lowercased words the same as for original ones if the lowercased version has no embedding
+\item Initialize embedding matrix for 40k the most popular words uniformly at random
+\item For each word among those 40k which has embedding in Glove set this embedding to an appropriate row in the embedding matrix 
+\item For all words which are not the most popular and are present in Glove find its embeddings 
+\item For embeddings from the previous step find the nearest embedding from the most popular words and assign it to this non popular word (this helped to find embeddings for 187k additional words)
+\item Replace words with their indices in headlines and descriptions
+\item Write indexed headlines and descriptions into .pkl with Pickle
+\item Write embeddings, mappings between words from our vocabulary and their indices, mappings between words from our vocabulary and words from Glove to files
+\end{enumerate}
+
 
 \section{Results}
 \subsection{Evaluation}
@@ -319,14 +335,10 @@ The performance of the model was measured using BLEU \cite{bleu} evaluation metr
 headlines are actually output by the model. It also considers the number of words generated in comparison to the number of words used in the expected headlines. 
 
 
-\subsection{Results}
+\subsection{Analysis}
 
 The examples of meaningful headers generated by our model are represented in 
 Table ~\ref{tab:results-table}.
-
-There are a lot of nonsense headers which our model generates, so there is obviously a big area to improvement of our model. Training on physical GPU or more reliable Cloud than Google Colaboratory for more epochs should improve the results significantly. 
-
-What we've mentioned for now is that our model likes to put out-of-vocabulary words in caption. Also what is important, it obviously doesn't rephrase the ground truth headline, but generates its own.
 
 \begin{center}
 \begin{table}[!htb]
@@ -364,21 +376,28 @@ Report of Products Market Toronto-Dominion.
 
 
 \begin{minipage}[t]{0.4\columnwidth}%
-Shares of Toronto-Dominion Bank (NYSE: TD) have been given an average recommendation of Buy by the eleven research firms that are currently covering the firm, Market Beat Ratings reports. One equities research analyst has rated the stock with a sell rating, three have assigned a hold rating and six have given a buy rating to the company.           
+Microsoft has acquired Double Labs, an Android app startup which develops the popular Echo Notification Lockscreen for Android devices. This app had received between 1 million and 5 million downloads so far in Play Store.          
 \end{minipage}
  & 
 \begin{minipage}[t]{0.3\columnwidth}%
-Toronto-Dominion Bank Receives \$56.75 Average Target Price from Analysts (NYSE: TD) 
+Microsoft Acquires Popular Android App Echo Notification Lockscreen
 \end{minipage}
  & 
 \begin{minipage}[t]{0.3\columnwidth}% 
-Report of Products Market Toronto-Dominion. 
+Lockscreen Management Announces
 \end{minipage}  \\ \hline
-
 
 \end{tabular}
 \end{table}
 \end{center}
+
+There are a lot of nonsense headers which our model generates, so there is obviously a big area for improvement of our model. Training on physical GPU or more reliable Cloud than Google Colaboratory for more epochs should improve the results significantly. 
+
+What we've mentioned for now is that our model likes to put out-of-vocabulary words in caption. For example, one of generated headers for the third example in table was "Business Cash Lockscreen\^{} the : Lockscreen\^{} and ( to and Lockscreen\^{} ) , 2015 Nikhil after key issued price Agency". Such behavior is caused by high attention on such words. Also model does not recognize a multy-word entities, i.e. in the same example we have "Echo Notification Lockscreen" entity, but in headers we mostly only "Lockscreen" appears as "echo" and "notification" are known words.
+
+What is important to note, our model doesn't rephrase the ground truth headline, but generates its own.
+
+Our code for data preprocessing, model testing and training can be found \href{https://github.com/mykhaly/text_summarization_using_LSTM}{[here]}.
 
 
 \begin{thebibliography}{9}
