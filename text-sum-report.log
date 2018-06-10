@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.15)  10 JUN 2018 13:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.15)  10 JUN 2018 14:03
 entering extended mode
 **./text-sum-report.tex
 (text-sum-report.tex
@@ -522,18 +522,18 @@ Package caption3 Info: TeX engine: e-TeX on input line 67.
 (text-sum-report.aux)
 \openout1 = `text-sum-report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -634,20 +634,20 @@ Package caption Info: End \AtBeginDocument code.
 <img/UCU-Apps.png, id=4, 2209.50468pt x 980.91469pt>
 File: img/UCU-Apps.png Graphic file (type png)
  <use img/UCU-Apps.png>
-Package pdftex.def Info: img/UCU-Apps.png used on input line 100.
+Package pdftex.def Info: img/UCU-Apps.png used on input line 101.
 (pdftex.def)             Requested size: 256.3297pt x 113.81102pt.
 
 [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <./img/UCU-Apps.png>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 122.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 123.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 122.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 123.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\ucs\uni-32.def"
 File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
@@ -655,10 +655,10 @@ File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
 <img/seq-to-seq.png, id=20, 293.095pt x 186.6975pt>
 File: img/seq-to-seq.png Graphic file (type png)
  <use img/seq-to-seq.png>
-Package pdftex.def Info: img/seq-to-seq.png used on input line 141.
+Package pdftex.def Info: img/seq-to-seq.png used on input line 142.
 (pdftex.def)             Requested size: 234.8775pt x 149.61172pt.
 
-Overfull \hbox (5.03172pt too wide) in paragraph at lines 147--148
+Overfull \hbox (5.03172pt too wide) in paragraph at lines 148--149
 []\OT1/cmr/m/n/12 An ef-fec-tive and stan-dard ap-proach to build sequence-to-s
 equence mod-els is us-ing Encoder-
  []
@@ -673,54 +673,52 @@ Package pdftex.def Info: img/RNN.png used on input line 173.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [2 <./img/seq-to-seq.png>] [3 <./img/RNN.png>]
-<img/seq2seq-detailed.png, id=37, 584.9052pt x 335.8146pt>
+<img/seq2seq-detailed.png, id=39, 584.9052pt x 335.8146pt>
 File: img/seq2seq-detailed.png Graphic file (type png)
 
 <use img/seq2seq-detailed.png>
-Package pdftex.def Info: img/seq2seq-detailed.png used on input line 222.
-(pdftex.def)             Requested size: 328.82707pt x 188.79788pt.
+Package pdftex.def Info: img/seq2seq-detailed.png used on input line 227.
+(pdftex.def)             Requested size: 375.80544pt x 215.77121pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [4] [5 <./img/seq2seq-detailed.png>]
-Underfull \hbox (badness 1642) in paragraph at lines 286--287
+Underfull \hbox (badness 1642) in paragraph at lines 292--293
 []\OT1/cmr/m/n/12 Lopyrev, K.\OT1/cmr/m/it/12 Generating News Head-lines with R
 e-cur-rent Neu-ral Net-works\OT1/cmr/m/n/12 . CoRR,
  []
 
-[6] (text-sum-report.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+[6] (text-sum-report.aux) ) 
 Here is how much of TeX's memory you used:
- 15590 strings out of 493323
- 297388 string characters out of 3139065
- 362438 words of memory out of 3000000
- 18817 multiletter control sequences out of 15000+200000
- 12303 words of font info for 44 fonts, out of 3000000 for 9000
+ 15597 strings out of 493323
+ 297490 string characters out of 3139065
+ 361416 words of memory out of 3000000
+ 18822 multiletter control sequences out of 15000+200000
+ 13657 words of font info for 49 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,9n,92p,1202b,817s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
-ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
-les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Program Files/MiK
-TeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9/
-fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
-c/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfont
-s/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr1
-2.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:
-/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program F
-iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
-/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
-msfonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmtt12.pfb>
-Output written on text-sum-report.pdf (7 pages, 456158 bytes).
+ 62i,9n,92p,633b,817s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
+onts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.
+pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/
+Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program 
+Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/typ
+e1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
+/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.p
+fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/P
+rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
+/amsfonts/cm/cmtt12.pfb>
+Output written on text-sum-report.pdf (7 pages, 480193 bytes).
 PDF statistics:
- 104 PDF objects out of 1000 (max. 8388607)
+ 112 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  33 words of extra memory for PDF output out of 10000 (max. 10000000)
 

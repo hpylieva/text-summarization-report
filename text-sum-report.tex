@@ -40,6 +40,7 @@
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage[sort, numbers]{natbib}
+\usepackage[font=small,labelfont=bf]{caption}
 \graphicspath{img/}
 
 \usepackage{caption}
@@ -140,7 +141,7 @@ sequence-to-sequence models, which map from an input sequence to a target sequen
 	\centering
 	\includegraphics[width=0.5\textwidth]{img/seq-to-seq.png}
 	\setcaptioncitation{\cite{attention_based_NMT}}
-	\caption{\label{fig:seq-to-seq}The model reads an input sentence “ABC” and produces “WXYZ” as the output 	sentence. The model stops making predictions after outputting the $<$eos$>$ token. It then starts 		 emiting one target word at a time. }
+	\caption{\label{fig:seq-to-seq}The model reads an input sentence “ABC” and produces “XYZ” as the output 	sentence. The model stops making predictions after outputting the $<$eos$>$ token. It then starts 		 emiting one target word at a time. }
 \end{figure}
 
 
@@ -162,11 +163,10 @@ $f$ - activation function,
 $x_{t}$ - input vector, 
 $h_{t}$ - hidden layer vector,
 $y_{t}$ - output vector,
-$W$ - parameter matrix
+$W$ - weight matrix
  
  
-An RNN can map sequences to sequences provided that the alignment between the inputs the
-outputs is known ahead. In other words RNN needs a defined one-to-one correspondence between a sequence of inputs and sequence of outputs which can be understood better from RNN unfold representation on Figure~\ref{fig:RNN}.
+An RNN can map sequences to sequences provided that the alignment between the inputs and the outputs is known ahead. In other words RNN needs a defined one-to-one correspondence between a sequence of inputs and sequence of outputs which can be understood better from RNN unfolded representation on Figure~\ref{fig:RNN}.
 
 \begin{figure}[h]
 	\centering
@@ -179,12 +179,12 @@ However, it is not clear how to apply an RNN to problems whose input and the out
 
 The simplest strategy for general sequence learning is to map the input sequence to a fixed-sized
 vector using one RNN, and then to map that vector to the target sequence with another RNN (the
-approach is represented in \cite{baseline_NMT}). Since the RNN is provided with all the relevant information this will work. Whereas the need to store information over extended time interval will lead to difficulties with training RNN (vanishing gradient problem/exploding gradientt problem explained in \cite{LSTM_baseline}).
+approach is represented in \cite{baseline_NMT}). Since the RNN is provided with all the relevant information this will work. Whereas the need to store information over extended time interval will lead to difficulties with training RNN (vanishing/ exploding gradient problem explained in \cite{LSTM_baseline}).
 Here Long Short-Term Memory (LSTM) layers will come in handy as they are known to learn problems with long range temporal dependencies and will succeed in this setting.
 
 \subsubsection{LSTM}
 
-The goal of LSTM in general is to estimate the conditional probability of outpuy sequence by input sequence $p(y_1, ..., y_{T′}|x_1, ..., x_T )$ when lengths of those sequences are possibly: $T' \neq T$. 
+The goal of LSTM in general is to estimate the conditional probability of output sequence by input sequence $p(y_1, ..., y_{T′}|x_1, ..., x_T )$ when lengths of those sequences are possibly: $T' \neq T$. 
 An LSTM computes this conditional probability by first obtaining the fixed dimensional
 representation $v$ of the input sequence $(x_1, ..., x_T)$ given by the last hidden state of the LSTM, and then computing the probability of $y_1, ..., y_{T′}$ with a standard LSTM-LM
 \footnote{Language Model (LM) is a probability distribution over sequences of words. LSTM-LM is algorithm of using an LSTM (and softmax function) to predict the next word given your previous words.} 
@@ -216,15 +216,17 @@ In our case encoder consists of 2 LSTMs, both on hidden layer. We run the stacke
 \subsubsection{Decoder}
 Our decoder consist of 1 LSTM cell. On each decoding step we feed $v$ as hidden state and the word generated on previous step (EOS symbol on the first step) into decoder as input.
 % The LSTM computes next hidden state of decoder $h_0 \in R^h$. 
-Then a function $g: R^h \rightarrow R^V$ is applied so that $s_j := g(s_{j-1}, [v, y{j-1}]) \in R^V$ is a vector of the same size as vocabulary. Then we predict next word in output sequence by applying softmax to $s_j$. \todo{Does this sentence easy to understand?} Softmax function results in a vector of likelihood for each word in the vocabulary to be the next in the sequence. 
+Then a function $g: R^h \rightarrow R^V$ is applied so that $s_t := g(s_{t-1}, [v, y_{t-1}]) \in R^V$ is a vector of the same size as vocabulary. Then we predict next word $y_{t-1}$ in output sequence by applying softmax to $s_j$. \todo{Does this sentence easy to understand?} Softmax function results in a vector of likelihood for each word in the vocabulary to be the next in the sequence. 
 
-The task of decoder is to find the most likely output sequence. Due to big vocabulary size the search problem through all the possible output sequences based on their likelihood is exponential in length of the output sequence and is NP-complete. That is why it is common to use approximate methods. We used beam search and were keeping in memory 10 best output sequences (hypotheses) to eventually opt for the best combination of words. On each step after we've found the index $i_t$ of the desired word, we get a vector $w_{i_t}$ corresponding to it and repeat the procedure: LSTM is fed with the hidden state $h_t$ and a word $w_{i_t}$, it will output the next word in output sequence. The process repeats until $w_{eos}$ is generated.
+The task of decoder is to find the most likely output sequence for the input received and processed by encoder. Due to big vocabulary size the search problem through all the possible output sequences based on their likelihood is exponential in length of the output sequence and is NP-complete. That is why it is common to use approximate methods. We used beam search and were keeping in memory 10 best hypotheses (output sequences) to eventually opt for the best combination of words. 
+
+%On each step after we've found the index $i_t$ of the desired word, we get a vector $w_{i_t}$ corresponding to it and repeat the procedure: LSTM is fed with the hidden state $v$ and a word $w_{i_t}$, it will output the next word in output sequence. The process repeats until $w_{eos}$ is generated.
 
 \begin{figure}[h]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/seq2seq-detailed.png}
+	\includegraphics[width=0.8\textwidth]{img/seq2seq-detailed.png}
 	\setcaptioncitation{Created by author, inspired by \url{https://guillaumegenthial.github.io/sequence-to-sequence.html}}
-	\caption{\label{fig:encoder}LSTM-based sequence to sequence model on example of NMT. Note: $v$ is fed on input of decoding LSTM on each step to avoid }
+	\caption{\label{fig:encoder}LSTM-based sequence to sequence model on example of NMT. Note: $v$ is actually fed on input of decoder on each step to prevent neural network from "forgetting" about it till the end of output sequence. }
 \end{figure}
 
 The described process corresponds to testing phase. On training phase instead of feeding in as input of new generative step the freshly generated word, the expected word from the actual headline is fed in. This leads to a disconnect between training
@@ -251,7 +253,7 @@ instead of the expected word, as suggested in \cite{scheduled_sampling}. Specifi
 
 
 \subsubsection{Attention} \label{attention}
-In vanilla Encoder-Decoder architecture encoder reads the input sequence of words and compresses all information into a fixed-length vector of hidden states. This can lead to significant information loss and inadequate summarization in case of long input sequences, because hundreds of words will be represented by several of them. Attention mechanism is aimed to fix this problem.
+In the vanilla encoder-decoder architecture encoder reads the input sequence of words and compresses all the information into a fixed-length vector of hidden states. This can lead to significant information loss and inadequate summarization in case of long input sequences, because hundreds of words will be represented by several of them. Attention mechanism is aimed to fix this problem.
 
 With attention mechanism the decoder relies not only on a single hidden state generated by encoder, but has information about hidden states generated by encoder on each timestamp. To make 
 Attention is a mechanism that addresses a limitation of the encoder-decoder architecture on long sequences. It speeds up the learning and lifts the skill of the model on sequence to sequence prediction problems. 
@@ -263,7 +265,8 @@ softmax layer along with the last hidden layer from the current step of the deco
 
 \subsubsection{Training details}
 Google Collaboratory for each team member to contribute simultaneously.
-To store files - used one account
+To store files - used one account.
+We reduce the sample iput size as otherwise the 
 
 
 \begin{thebibliography}{9}
