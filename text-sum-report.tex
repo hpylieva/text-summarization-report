@@ -42,6 +42,8 @@
 \usepackage[sort, numbers]{natbib}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=0pt}
 \graphicspath{img/}
 
 
@@ -121,6 +123,8 @@ of an input text. Since the advent of text summarization in 1950s, researchers h
 There are two prominent types of summarization algorithms.
 
 \begin{itemize}
+\setlength\itemsep{0.5em}
+
 	\item Extractive summarization copies parts of the source text through some measure of importance and then combines those part/sentences together to render a summary. Importance of sentence is based on linguistic and statistical features.
 
 	\item Abstractive summarization generates new phrases, possibly rephrasing or using words that were not in the original text. Naturally abstractive approaches are harder as it involves robust natural language processing. For perfect abstractive summary, the model has to first understand the document and then express that understanding in succinct form possibly using new words and phrases.  Abstractive summarization has complex capabilities like generalization, paraphrasing and incorporating  real-world knowledge \cite{abstractive_text_summarization}.
@@ -129,7 +133,7 @@ There are two prominent types of summarization algorithms.
 Majority of the work has traditionally focused on extractive approaches due to the easy of defining hard-coded rules to select important sentences than generate new ones. Also, it promises grammatically correct and coherent summary. But they often don’t summarize long and complex texts well as they are very restrictive.
 
 
-Abstractive methods, on the other hand, provide highly powerful and promising results. That is why in this project we implemented an algorithm for abstractive text summarization to build solid understanding if this approach and discover how it can be improved.
+Abstractive methods, on the other hand, provide highly powerful and promising results. That is why in this project we implemented an algorithm for abstractive text summarization to build solid understanding of this approach and discover how it can be improved.
 
 
 \section{Model}
@@ -138,11 +142,11 @@ Models for abstractive text summarization fall under a larger deep learning cate
 sequence-to-sequence models, which map from an input sequence to a target sequence. This approach is illustrated on Figure~\ref{fig:seq-to-seq}. It was initially used for Neural Machine Translation as described in \cite{attention_based_NMT}. 
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.5\textwidth]{img/seq-to-seq.png}
 	\setcaptioncitation{\cite{attention_based_NMT}}
-	\caption{\label{fig:seq-to-seq}The model reads an input sentence “ABC” and produces “XYZ” as the output 	sentence. The model stops making predictions after outputting the $<$eos$>$ token. It then starts 	emiting one target word at a time. }
+	\caption{\label{fig:seq-to-seq}The model reads an input sentence “A B C D” and produces “X Y Z” one word by word as output sentence. The model stops making predictions after outputting the $<$eos$>$ token.  }
 \end{figure}
 
 
@@ -169,7 +173,7 @@ $W$ - weight matrix
  
 An RNN can map sequences to sequences provided that the alignment between the inputs and the outputs is known ahead. In other words RNN needs a defined one-to-one correspondence between a sequence of inputs and sequence of outputs which can be understood better from RNN unfolded representation on Figure~\ref{fig:RNN}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{img/RNN.png}
 	\setcaptioncitation{Created by author}
@@ -185,7 +189,7 @@ Here Long Short-Term Memory (LSTM) layers will come in handy as they are known t
 
 \subsubsection{LSTM}
 
-The goal of LSTM is to estimate the conditional probability of output sequence by input sequence $p(y_1, ..., y_{T′}|x_1, ..., x_T )$ when lengths of those sequences are possibly $T' \neq T$. 
+The goal of LSTM is to estimate the conditional probability of output sequence by input sequence $p(y_1, ..., y_{T′}|x_1, ..., x_T )$ when lengths of those sequences are possibly different ($T' \neq T$). 
 An LSTM computes this conditional probability by first obtaining the fixed dimensional
 representation $v$ of the input sequence $(x_1, ..., x_T)$ given by the last hidden state of the LSTM, and then computing the probability of $y_1, ..., y_{T′}$ with a standard LSTM-LM
 \footnote{Language Model (LM) is a probability distribution over sequences of words. LSTM-LM is an algorithm of using an LSTM (and softmax function) to predict the next word given your previous words.} 
@@ -197,23 +201,15 @@ $$p(y_1, ..., y_{T′}|x_1, ..., x_T ) = \prod_{t=1}^{T'} p(y_t|v, y_1, ..., y_{
 In this equation, each $p(y_t|v, y_1, ..., y_{t-1})$ distribution is represented with a softmax over all the
 words in the vocabulary \cite{seq2seq_with_NN}.
 
-Taking into consideration all above and having processed prominent researches on abstractive summarization topic we've built an encoder-decoder recurrent neural network with LSTM units and attention mechanism to generate headlines from the text of news articles. We took the model described in \cite{model-baseline-article} as baseline, but performed some modifications according to available software restrictions. We used the next repository as a reference point of how to build the whole process: \url{https://github.com/udibr/headlines}.
+Taking into consideration all above and having processed prominent researches on abstractive summarization topic we've built an encoder-decoder recurrent neural network with LSTM units and attention mechanism to generate headlines from the text of news articles. We took the model described in \cite{model-baseline-article} as baseline, but performed some modifications according to available software restrictions. We used the next repository as a reference point of how to build the whole process \cite{reference-repository}.
 
 \subsection{Overview}
 In our model encoder and decoder get more precise descriptions.
-
 
 \subsubsection{Encoder}
 The input of encoder consists of article's text of restricted size followed by an end-of-sequence symbol ($EOS$, in code we used '$<eos>$') followed by header. Each word of input is first passed through an embedding layer which transforms it into a distributed representation.
 % So now each word has a corresponding vector $w \in R^d$.
 We run the stacked LSTMs over the sequence of vectors and store the last hidden state $v \in R^H$ - this is a fixed-size encoder representation, which will be used by decoder to generate the target sequence word by word.   
-
-%\begin{figure}[h]
-%\centering
-%	\includegraphics[width=0.45\textwidth]{img/seq2seq_vanilla_encoder.png}
-%	\setcaptioncitation{\url{https://guillaumegenthial.github.io/sequence-to-sequence.html}}
-%	\caption{\label{fig:encoder}LSTM-based Encoder}
-%\end{figure}
 
 \subsubsection{Decoder}
 On each decoding step we feed $v$ as hidden state and the word generated on previous step (EOS symbol on the first step) into decoder as input.
@@ -225,11 +221,9 @@ The task of decoder is to find the most likely output sequence for the input rec
 \begin{figure}[h]
 \centering
 	\includegraphics[width=0.8\textwidth]{img/seq2seq-detailed.png}
-	\setcaptioncitation{Created by author, inspired by \url{https://guillaumegenthial.github.io/sequence-to-sequence.html}}
+	\setcaptioncitation{Created by author, inspired by \cite{seq2seq-explanation} }
 	\caption{\label{fig:encoder-decoder-lstm}LSTM-based sequence to sequence model on example of NMT. Note: $v$ is actually fed on input of decoder on each step to prevent neural network from "forgetting" about it till the end of output sequence. }
 \end{figure}
-
-%On each step after we've found the index $i_t$ of the desired word, we get a vector $w_{i_t}$ corresponding to it and repeat the procedure: LSTM is fed with the hidden state $v$ and a word $w_{i_t}$, it will output the next word in output sequence. The process repeats until $w_{eos}$ is generated.
 
 
 The described process corresponds to testing phase. On training phase instead of feeding in as input of new generative step the freshly generated word, the expected word from the actual headline is fed in. This leads to a disconnect between training and testing. To overcome this disconnect, during training we randomly feed in a generated word, instead of the expected word, as suggested in \cite{scheduled_sampling}. Specifically, we do this for 10\% of cases. This approach is called "teacher forcing".
@@ -256,7 +250,7 @@ The described process corresponds to testing phase. On training phase instead of
 In the vanilla encoder-decoder architecture encoder reads the input sequence of words and compresses all the information into a fixed-length vector of hidden states. This can lead to significant information loss and inadequate summarization in case of long input sequences, because hundreds of words will be represented by several of them. Attention mechanism is aimed to fix this problem. It speeds up the learning and lifts the skill of the model on sequence to sequence prediction problems. 
 
 The attention mechanism is used when outputting each word in the decoder (Figure~\ref{fig:attention}). For each output word the attention mechanism computes a weight over each of the input words that determines how much attention should be paid to that input word. The weights sum up to 1, and are used to compute a weighted average of the last hidden layers generated after processing
-each of the input words. This weighted average, referred to as the context, is then fed into the softmax layer along with the last hidden layer from the current step of the decoding. As shown on  encoder's hidden states are weighted  \cite{model-baseline-article}.  
+each of the input words. This weighted average, referred to as the context, is then fed into the softmax layer along with the last hidden layer from the current step of the decoding.
 %With attention mechanism the decoder relies not only on a single hidden state generated by encoder, but has information about hidden states $\{h_i\}$ generated by encoder on each time stamp.  
 
 \begin{figure}[h]
@@ -274,12 +268,11 @@ Colaboratory is free and allows a group of users edit one Jupyter notebook simul
 
 Our solution is implemented on Python3, the model is built on Keras with Tensorflow backend. 
 
-According to RAM limitation and politics of Google Colaboratory to switch off processes which run for mote than 12 hours (to prevent cryptocurrency mining on the tool), we had issues during training as it was insufficient for our purposes. Mostly the models like the one described are run during 3-8 days in case of one GPU as they use a big input dataset and deep LSTMs. As we had only 1 GPU, the maximum model characteristics which allowed us run at least one epoch in a time without fails were the following:
+According to RAM limitation and politics of Google Colaboratory to switch off processes which run for more than 12 hours (to prevent cryptocurrency mining on the tool), we had issues during training as it was insufficient for our purposes. Mostly the models like the one described are run during 3-8 days in case of one GPU as they use a big input dataset and deep LSTMs. As we had only 1 GPU, the maximum model characteristics which allowed us run at least one epoch in a time without fails were the following:
 
 \begin{itemize}
-\setlength\itemsep{-0.5em}
-\item Maximum length of description (in words): 25 . Description is article. So we took only 25 first words from each article. 
-\item Maximum length of header (in words): 25. Header is caption of article.
+\item Maximum length of description (in words): 25 . Description is an article. So we took only 25 first words from each article. 
+\item Maximum length of header (in words): 25. Header is a caption of article.
 \item Number of RNN (LSTM) layers: 3
 \item Dimensionality of output from RNN: 128
 \item Batch-size: 64
@@ -288,7 +281,7 @@ According to RAM limitation and politics of Google Colaboratory to switch off pr
 \item Learning rate: started with 0.01, then changed to 0.0001
 \end{itemize}
 
-As we experienced "Runtime died" frequently, our model saves weights after each epoch. Each epoch took up to 1 hour a The best loss we reached on validation set was 7.8181 (started from 20.0). We managed to run our model for at most 8 epochs without failures.
+As we experienced "Runtime died" frequently, our model saves weights after each epoch. Each epoch took up to 1 hour. The best loss we reached on validation set was 7.8181 (started from 20.0). We managed to run our model for at most 8 epochs without failures.
 
 \section{Dataset}
 \subsection{Overview}
@@ -297,7 +290,7 @@ We used \href{http://research.signalmedia.co/newsir16/signal-dataset.html}{The S
 The file is in JSONL format, where each line is a JSON object representing an article. Each article has the following fields:
 
 \begin{itemize}
-\setlength\itemsep{-0.5em}
+%\setlength\itemsep{-0.5em}
 \item id: a unique identifier for the article
 \item title: the title of the article
 \item content: the textual content of the article (may occasionally contain HTML and JavaScript content)
@@ -306,41 +299,49 @@ The file is in JSONL format, where each line is a JSON object representing an ar
 \item media-type: either "News" or "Blog"
 \end{itemize}  
 
-We extracted only "content" and "title" fields, then placed them into .pkl to make reads more convenient.
+We extracted only "content" and "title" fields, then serialized then into ,pkl to make reads more convenient.
 
 \subsection{Preprocessing}
 During data preprocessing we did the following:
 
-\begin{enumerate}
-\setlength\itemsep{-0.5em}
-\item Convert the original file into standard JSON format and leave only "content" and "title" fields.
-\item Leave only two sentences in descriptions
+\begin{enumerate}[noitemsep]
+%\setlength\itemsep{-0.5em}
+\item Converted the original file into standard JSON format and left only "content" and "title" fields.
+\item Left only two sentences in descriptions
 \item Tokenize data using nltk’s Punkt tokenizer
-\item Get vocabulary and words counts of all words in dataset
-\item Index all words in vocabulary Create mappings from words to indexes and vice versa
+\item Got vocabulary and words counts of all words in dataset
+\item Indexed all words in vocabulary 
+\item Created mappings from words to indexes and vice versa
 \item Read GloVe embeddings (with dimetionality of vectors 100), set embeddings for lowercased words the same as for original ones if the lowercased version has no embedding
-\item Initialize embedding matrix for 40k the most popular words uniformly at random
+\item Initialized embedding matrix for 40k of the most popular words uniformly at random
 \item For each word among those 40k which has embedding in Glove set this embedding to an appropriate row in the embedding matrix 
-\item For all words which are not the most popular and are present in Glove find its embeddings 
-\item For embeddings from the previous step find the nearest embedding from the most popular words and assign it to this non popular word (this helped to find embeddings for 187k additional words)
-\item Replace words with their indices in headlines and descriptions
-\item Write indexed headlines and descriptions into .pkl with Pickle
-\item Write embeddings, mappings between words from our vocabulary and their indices, mappings between words from our vocabulary and words from Glove to files
+\item Found embeddings for all words which are not the most popular, but are present in Glove
+\item For words from the previous step found the nearest embedding of a word from most popular words and assigned to this non popular word (this helped to find embeddings for 187k additional words)
+\item Replaced words with their indices in headlines and descriptions
+\item Serialized the next:
+	\begin{itemize}
+		\item indexed headlines
+		\item indexed descriptions
+		\item embedding for the most popular words from vocabulary
+ 		\item mappings between words from vocabulary and their indices and vice versa
+ 		\item mappings between words from vocabulary and words from Glove
+	\end{itemize}
+ 	
 \end{enumerate}
 
 
-\section{Results}
-\subsection{Evaluation}
-The performance of the model was measured using BLEU \cite{bleu} evaluation metric over the holdout set. The BLEU evaluation metric looks at what fraction of n-grams of different lengths from the expected
-headlines are actually output by the model. It also considers the number of words generated in comparison to the number of words used in the expected headlines. 
-
-
-\subsection{Analysis}
+\section{Results Analysis}
 
 The examples of meaningful headers generated by our model are represented in 
 Table ~\ref{tab:results-table}.
 
 There are a lot of nonsense headers which our model generates, so there is obviously a big area for improvement of our model. Training on physical GPU or more reliable Cloud than Google Colaboratory for more epochs should improve the results significantly.
+
+What we have mentioned for now is that our model likes to put out-of-vocabulary words in caption. For example, one of generated headers for the third example in table was "Business Cash Lockscreen\^{} the : Lockscreen\^{} and ( to and Lockscreen\^{} ) , 2015 Nikhil after key issued price Agency". Such behavior is caused by high attention on such words. Also model does not recognize a multy-word entities, i.e. in the same example we have "Echo Notification Lockscreen" entity, but in headers we mostly observed only "Lockscreen" appears as "echo" and "notification" are known words.
+
+What is important to note, our model doesn't rephrase the ground truth headline, but generates its own.
+
+Our code for data preprocessing, model testing and training can be found \href{https://github.com/mykhaly/text_summarization_using_LSTM}{[here]}.
 
 \begin{center}
 \begin{table}[!htb]
@@ -391,18 +392,11 @@ Lockscreen Management Announces
 \end{table}
 \end{center}
 
- 
 
-What we have mentioned for now is that our model likes to put out-of-vocabulary words in caption. For example, one of generated headers for the third example in table was "Business Cash Lockscreen\^{} the : Lockscreen\^{} and ( to and Lockscreen\^{} ) , 2015 Nikhil after key issued price Agency". Such behavior is caused by high attention on such words. Also model does not recognize a multy-word entities, i.e. in the same example we have "Echo Notification Lockscreen" entity, but in headers we mostly only "Lockscreen" appears as "echo" and "notification" are known words.
 
-What is important to note, our model doesn't rephrase the ground truth headline, but generates its own.
-
-Our code for data preprocessing, model testing and training can be found \href{https://github.com/mykhaly/text_summarization_using_LSTM}{[here]}.
-
+\pagebreak
 
 \begin{thebibliography}{9}
-	\bibitem{baseline_NMT}
-	Bahdanau,D.; Cho,K.; Bengio Y. \textit{Neural machine translation by jointly learning to align and translate}. CoRR, abs/1409.0473, 2014. \url{ http://arxiv.org/abs/1409.0473}.
 	
 	\bibitem{text_sum_survey}
 	Gambhir, M. and Gupta, V. \textit{Recent automatic text summarization techniques: a survey}. Artificial Intelligence Review, 47(1):1-66, 2017.
@@ -413,14 +407,26 @@ Our code for data preprocessing, model testing and training can be found \href{h
 	\bibitem{attention_based_NMT}
 	Minh Thang Luong; Hieu Pham; Christopher D. Manning. \textit{Effective Approaches to Attention-based Neural Machine Translation}. CoRR, abs/1508.04025, 2015. \url{http://arxiv.org/abs/1508.04025}
 	
-	\bibitem{seq2seq_with_NN}
-	Ilya Sutskever, Oriol Vinyals, Quoc V. Le \textit{Sequence to Sequence Learning with Neural Networks}. CoRR, abs/1409.3215, 2014. \url{http://arxiv.org/abs/1409.3215}
+	\bibitem{baseline_NMT}
+	Bahdanau,D.; Cho,K.; Bengio Y. \textit{Neural machine translation by jointly learning to align and translate}. CoRR, abs/1409.0473, 2014. \url{ http://arxiv.org/abs/1409.0473}.
 	
+		
 	\bibitem{LSTM_baseline}	
 	S. Hochreiter and J. Schmidhuber. \textit{Long short-term memory}. Neural Computation, 1997.
+	
+	\bibitem{seq2seq_with_NN}
+	Ilya Sutskever, Oriol Vinyals, Quoc V. Le \textit{Sequence to Sequence Learning with Neural Networks}. CoRR, abs/1409.3215, 2014. \url{http://arxiv.org/abs/1409.3215}
+
 		 
 	\bibitem{model-baseline-article}
 	Lopyrev, K.\textit{Generating News Headlines with Recurrent Neural 	Networks}. CoRR, abs/1512.01712, 2015.
+	
+	
+	\bibitem{reference-repository}
+	 \url{https://github.com/udibr/headlines}
+	 
+	 \bibitem{seq2seq-explanation}
+	 \url{https://guillaumegenthial.github.io/sequence-to-sequence.html}
 	
 	\bibitem{scheduled_sampling}
 	Samy Bengio, Oriol Vinyals, Navdeep Jaitly, and Noam Shazeer. \textit{Scheduled sampling for sequence
