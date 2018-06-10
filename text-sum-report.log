@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.15)  10 JUN 2018 20:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.15)  10 JUN 2018 20:34
 entering extended mode
 **./text-sum-report.tex
 (text-sum-report.tex
@@ -780,14 +780,14 @@ Package pdftex.def Info: img/RNN.png used on input line 174.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [2 <./img/seq-to-seq.png>] [3 <./img/RNN.png>]
-<img/seq2seq-detailed.png, id=132, 584.9052pt x 335.8146pt>
+<img/seq2seq-detailed.png, id=131, 584.9052pt x 335.8146pt>
 File: img/seq2seq-detailed.png Graphic file (type png)
 
 <use img/seq2seq-detailed.png>
 Package pdftex.def Info: img/seq2seq-detailed.png used on input line 227.
 (pdftex.def)             Requested size: 375.80544pt x 215.77121pt.
  [4 <./img/seq2seq-detailed.png>]
-<img/seq2seq-with-attention.png, id=146, 466.74374pt x 398.48875pt>
+<img/seq2seq-with-attention.png, id=145, 466.74374pt x 398.48875pt>
 File: img/seq2seq-with-attention.png Graphic file (type png)
 
 <use img/seq2seq-with-attention.png>
@@ -796,22 +796,22 @@ Package pdftex.def Info: img/seq2seq-with-attention.png used on input line 264.
 (pdftex.def)             Requested size: 234.8775pt x 200.53293pt.
  [5 <./img/seq2seq-with-attention.png>]
 [6]
-Underfull \hbox (badness 5022) in paragraph at lines 353--354
+Underfull \hbox (badness 5022) in paragraph at lines 355--356
 []\OT1/cmr/m/n/12 Sydney-based strate-gic in-te-grated
  []
 
 
-Underfull \hbox (badness 1803) in paragraph at lines 353--354
+Underfull \hbox (badness 1803) in paragraph at lines 355--356
 \OT1/cmr/m/n/12 the busi-ness ex-pan-sion, they are
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 370--371
+Underfull \hbox (badness 10000) in paragraph at lines 371--372
 []\OT1/cmr/m/n/12 Toronto-Dominion Bank
  []
 
 
-Underfull \hbox (badness 6428) in paragraph at lines 370--371
+Underfull \hbox (badness 6428) in paragraph at lines 371--372
 \OT1/cmr/m/n/12 Re-ceives $56.75 Av-er-age
  []
 
@@ -821,7 +821,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 387--388
  []
 
 
-Overfull \hbox (36.00003pt too wide) in paragraph at lines 348--391
+Overfull \hbox (36.00003pt too wide) in paragraph at lines 350--391
  [][] 
  []
 
@@ -839,46 +839,36 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 441.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 441.
 Package rerunfilecheck Info: File `text-sum-report.out' has not changed.
 (rerunfilecheck)             Checksum: 933AD66DF527F3C698E1FAB5B62B1D04;881.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 441.
  ) 
 Here is how much of TeX's memory you used:
- 18935 strings out of 493323
- 348112 string characters out of 3139065
- 439000 words of memory out of 3000000
- 22082 multiletter control sequences out of 15000+200000
+ 18931 strings out of 493323
+ 348040 string characters out of 3139065
+ 438951 words of memory out of 3000000
+ 22080 multiletter control sequences out of 15000+200000
  13657 words of font info for 49 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,10n,92p,614b,549s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{table.caption.6} has been referenced but does not
- exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.caption.5} has been referenced but does not 
-exist, replaced by a fixed one
-
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Prog
-ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program File
-s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Program Files/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
-1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
-/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12
-.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/
-Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Fi
-les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX
- 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
-public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
-sfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
-m/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10
-.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on text-sum-report.pdf (10 pages, 559322 bytes).
+ 62i,10n,92p,615b,549s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Program Files/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
+pe1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
+ts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
+12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C
+:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program 
+Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/f
+onts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt
+10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on text-sum-report.pdf (10 pages, 559148 bytes).
 PDF statistics:
- 272 PDF objects out of 1000 (max. 8388607)
- 57 named destinations out of 1000 (max. 500000)
+ 270 PDF objects out of 1000 (max. 8388607)
+ 55 named destinations out of 1000 (max. 500000)
  158 words of extra memory for PDF output out of 10000 (max. 10000000)
 
